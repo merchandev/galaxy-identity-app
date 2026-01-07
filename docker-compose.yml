@@ -16,7 +16,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       - DB_HOST=db
       - DB_USER=root
