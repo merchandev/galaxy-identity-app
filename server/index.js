@@ -6,6 +6,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Galaxy Identity API Running', status: 'OK' });
+});
+
 // Database connection
 const db = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
@@ -23,7 +27,7 @@ db.getConnection((err, connection) => {
     console.error('Error connecting to database:', err);
   } else {
     console.log('Connected to MySQL database');
-    
+
     // Create table if not exists (simple migration)
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS visitors (
@@ -33,7 +37,7 @@ db.getConnection((err, connection) => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `;
-    
+
     connection.query(createTableQuery, (err) => {
       if (err) console.error('Error creating table:', err);
       else console.log('Visitors table check/creation successful');
@@ -45,7 +49,7 @@ db.getConnection((err, connection) => {
 // API Routes
 app.post('/api/register', (req, res) => {
   const { name, document_id } = req.body;
-  
+
   if (!name || !document_id) {
     return res.status(400).json({ error: 'Name and Document ID are required' });
   }
