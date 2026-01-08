@@ -18,4 +18,4 @@ If you are developing a production application, we recommend using TypeScript wi
 ## Deployment
 
 Project configured for Hostinger deployment.
-Last trigger: Fix port conflict and migration to Tailwind v4.
+Last trigger: Fix port conflict and migration to Tailwind v4. (Manual Trigger: Force Push)
