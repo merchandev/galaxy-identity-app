@@ -150,7 +150,7 @@ function App() {
             ) : (
               <button
                 onClick={handleAccept}
-                className="w-full bg-white text-slate-950 font-black py-5 rounded-2xl hover:bg-blue-400 transition-all shadow-xl shadow-blue-500/10 flex justify-center items-center gap-3"
+                className="w-full bg-white text-slate-950 font-black py-3 md:py-5 text-xs md:text-base rounded-2xl hover:bg-blue-400 transition-all shadow-xl shadow-blue-500/10 flex justify-center items-center gap-2 md:gap-3"
               >
                 ACEPTAR CONDICIONES Y EMPEZAR (400 USDT)
                 <ArrowRight className="w-5" />
