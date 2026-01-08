@@ -6,9 +6,13 @@ function App() {
   const [activeTab, setActiveTab] = useState('proyecto');
   const [accepted, setAccepted] = useState(false);
   const [signDate, setSignDate] = useState('');
+  const [isSigning, setIsSigning] = useState(false);
+  const [clientName, setClientName] = useState('');
 
-  const handleAccept = () => {
-    if (confirm("¿Estás de acuerdo con los términos de Merchan.Dev y deseas iniciar el proyecto por 400 USDT?")) {
+  const handleConfirmSign = () => {
+    if (!clientName.trim()) return;
+
+    if (confirm("¿Confirmas que deseas iniciar el proyecto por 400 USDT?")) {
       const now = new Date();
       setSignDate("FECHA DE FIRMA: " + now.toLocaleString() + " | IP: REGISTRADA");
       setAccepted(true);
@@ -144,12 +148,43 @@ function App() {
                   <Check className="text-emerald-400" />
                 </div>
                 <p className="text-emerald-400 font-bold text-lg">¡Contrato Aceptado!</p>
+                <p className="text-white font-bold text-xl mt-2">{clientName}</p>
                 <p className="text-xs text-slate-500 font-mono mt-1">{signDate}</p>
                 <p className="text-[10px] text-slate-600 mt-2 italic">Desarrollado por Merchan.Dev</p>
               </div>
+            ) : isSigning ? (
+              <div className="glass p-6 rounded-2xl border-blue-500/30 bg-slate-900/60 backdrop-blur-md">
+                <h3 className="text-lg font-bold mb-4 text-center">Finalizar Contratación</h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 mb-1 uppercase tracking-wider">Nombre y Apellido</label>
+                    <input
+                      type="text"
+                      value={clientName}
+                      onChange={(e) => setClientName(e.target.value)}
+                      placeholder="Escribe tu nombre completo"
+                      className="w-full bg-slate-950/50 border border-white/10 rounded-xl p-4 text-white placeholder-slate-600 focus:outline-none focus:border-blue-400 transition-colors"
+                    />
+                  </div>
+                  <button
+                    onClick={handleConfirmSign}
+                    disabled={!clientName.trim()}
+                    className="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                  >
+                    CONFIRMAR Y FIRMAR
+                    <Zap className="w-4" />
+                  </button>
+                  <button
+                    onClick={() => setIsSigning(false)}
+                    className="w-full text-slate-500 text-sm font-medium hover:text-white transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
             ) : (
               <button
-                onClick={handleAccept}
+                onClick={() => setIsSigning(true)}
                 className="w-full bg-white text-slate-950 font-black py-3 md:py-5 text-xs md:text-base rounded-2xl hover:bg-blue-400 transition-all shadow-xl shadow-blue-500/10 flex justify-center items-center gap-2 md:gap-3"
               >
                 ACEPTAR CONDICIONES Y EMPEZAR (400 USDT)
